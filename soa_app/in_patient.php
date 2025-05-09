@@ -108,7 +108,7 @@
 
             <div class="form-group">
                 <label>Other Diagnosis:</label>
-                <textarea name="other-diagnosis" required></textarea>
+                <textarea name="other-diagnosis"></textarea>
             </div>
 
             <div class="form-group">
