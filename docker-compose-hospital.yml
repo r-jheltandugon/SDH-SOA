@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  soa_web:
+    build:
+      context: ./soa_app
+      dockerfile: Dockerfile
+    container_name: soa_web
+    volumes:
+      - ./soa_app:/var/www/html
+    ports:
+      - "5050:80"  # Access at http://localhost:5050
+    networks:
+      - soa_net
+    restart: unless-stopped
+
+  soa_db:
+    image: mysql:8.0
+    container_name: soa_db
+    environment:
+      MYSQL_ROOT_PASSWORD: soa_root
+      MYSQL_DATABASE: soa_db
+      MYSQL_USER: soa_user
+      MYSQL_PASSWORD: soa_pass
+    volumes:
+      - soa_db_data:/var/lib/mysql
+      - ./soa_db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - soa_net
+    restart: unless-stopped
+
+  soa_phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    platform: linux/amd64
+    container_name: soa_phpmyadmin
+    environment:
+      PMA_HOST: soa_db
+      PMA_USER: root
+      PMA_PASSWORD: soa_root
+      APACHE_ALLOW_OVERRIDE: Yes
+    ports:
+      - "5051:80"  # Access at http://localhost:5051
+    networks:
+      - soa_net
+    depends_on:
+      - soa_db
+    restart: unless-stopped
+
+volumes:
+  soa_db_data:
+
+networks:
+  soa_net:
