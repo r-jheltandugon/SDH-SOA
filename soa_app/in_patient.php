@@ -228,16 +228,6 @@
                 <input type="number" step="0.01" name="total_pro_fee" id="total_pro_fee" readonly>
             </div>
 
-            <div class="form-group">
-                <label>PhilHealth Benefit:</label>
-                <input type="number" step="0.01" name="philhealth_benefit">
-            </div>
-
-            <div class="form-group">
-                <label>Total Payables:</label>
-                <input type="number" step="0.01" name="total_payables">
-            </div>
-
             <button type="submit">Save Record</button>
         </form>
     </div>
