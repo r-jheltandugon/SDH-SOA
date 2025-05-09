@@ -107,6 +107,11 @@
             </div>
 
             <div class="form-group">
+                <label>Other Diagnosis:</label>
+                <textarea name="diagnosis" required></textarea>
+            </div>
+
+            <div class="form-group">
                 <label>Date Admitted:</label>
                 <input type="datetime-local" name="date_admitted" required>
             </div>
