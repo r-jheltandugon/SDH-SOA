@@ -108,7 +108,7 @@
 
             <div class="form-group">
                 <label>Other Diagnosis:</label>
-                <textarea name="diagnosis" required></textarea>
+                <textarea name="other-diagnosis" required></textarea>
             </div>
 
             <div class="form-group">
@@ -153,13 +153,23 @@
             </div>
 
             <div class="form-group">
+                <label>Other:</label>
+                <input type="number" step="0.01" name="other">
+            </div>
+
+            <div class="form-group">
+                <label>Service:</label>
+                <input type="number" step="0.01" name="service">
+            </div>
+
+            <div class="form-group">
                 <label>Supplies:</label>
                 <input type="number" step="0.01" name="supplies">
             </div>
 
             <div class="form-group">
                 <label>Total HCI Fees:</label>
-                <input type="number" step="0.01" name="total_hci_fees">
+                <input type="number" step="0.01" name="total_hci_fees" readonly>
             </div>
 
             <h3>Professional Fees</h3>
@@ -192,4 +202,24 @@
         </form>
     </div>
 </body>
+<script>
+    function calculateTotalHCI() {
+        const drugs = parseFloat(document.querySelector('[name="drugs_and_meds"]').value) || 0;
+        const lab = parseFloat(document.querySelector('[name="lab_and_diag"]').value) || 0;
+        const misc = parseFloat(document.querySelector('[name="misc"]').value) || 0;
+        const room = parseFloat(document.querySelector('[name="room_and_board"]').value) || 0;
+        const other = parseFloat(document.querySelector('[name="other"]').value) || 0;
+        const service = parseFloat(document.querySelector('[name="service"]').value) || 0;
+        const supplies = parseFloat(document.querySelector('[name="supplies"]').value) || 0;
+
+        const total = drugs + lab + misc + room + other + service + supplies;
+        document.querySelector('[name="total_hci_fees"]').value = total.toFixed(2);
+    }
+
+    const fields = ['drugs_and_meds', 'lab_and_diag', 'misc', 'room_and_board', 'other', 'service', 'supplies'];
+
+    fields.forEach(fieldName => {
+        document.querySelector(`[name="${fieldName}"]`).addEventListener('input', calculateTotalHCI);
+    });
+</script>
 </html>
